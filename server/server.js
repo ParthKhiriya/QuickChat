@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import http from "http";
 import { connnectDB } from "./lib/db.js";
+import userRouter from "./routes/userRoutes.js";
 
 dotenv.config();
 
@@ -14,10 +15,9 @@ const server = http.createServer(app); // Using this HTTP server because the soc
 app.use(express.json({limit: "4mb"})); // So that data gets parsed to json and the limit is 4MB
 app.use(cors()); // Allow all the URLs to connect to our backend
 
-// Create a simple route:
-app.use("/api/status", (req, res) => {
-    res.send("Server is Live");
-});
+// Route setup
+app.use("/api/status", (req, res) => res.send("Server is Live"));
+app.use("/api/auth", userRouter);
 
 // Connect to MongoDB
 await connnectDB();
