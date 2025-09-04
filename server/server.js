@@ -1,5 +1,6 @@
+// import dotenv from "dotenv";
+// dotenv.config();
 import express from "express";
-import dotenv from "dotenv";
 import cors from "cors";
 import http from "http";
 import { connnectDB } from "./lib/db.js";
@@ -7,7 +8,6 @@ import userRouter from "./routes/userRoutes.js";
 import messageRouter from "./routes/messageRoutes.js";
 import { Server } from "socket.io";
 
-dotenv.config();
 
 // Create Express app and HTTP Server
 const app = express(); // Create an instance of express app
@@ -41,7 +41,7 @@ io.on("connection", (socket) => {
 })
 
 // Middleware setup:
-app.use(express.json({limit: "4mb"})); // So that data gets parsed to json and the limit is 4MB
+app.use(express.json({limit: "50mb"})); // So that data gets parsed to json and the limit is 50MB
 app.use(cors()); // Allow all the URLs to connect to our backend
 
 // Route setup

@@ -14,20 +14,35 @@ const ProfilePage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if(!selectedImage) {
-      await updateProfile({fullName: name, bio});
-      navigate('/');
-      return;
-    }
 
-    const reader = new FileReader();
-    reader.readAsDataURL(selectedImage);
-    reader.onload = async () => {
-      const base64Image = reader.result;
-      await updateProfile({profilePic: base64Image, fullName: name, bio});
-      navigate('/');
+    // This function will handle the actual update and navigation
+    const performUpdate = async (profileData) => {
+      try {
+        await updateProfile(profileData);
+        navigate('/');
+      } catch (error) {
+        console.error("Failed to update profile:", error);
+        toast.error("An error occurred while updating your profile.");
+      }
+    };
+
+    // If an image is selected, read it as a base64 string first
+    if (selectedImage) {
+      const reader = new FileReader();
+      reader.readAsDataURL(selectedImage);
+      reader.onload = () => {
+        const base64Image = reader.result;
+        performUpdate({ profilePic: base64Image, fullName: name, bio });
+      };
+      reader.onerror = (error) => {
+        console.error("Failed to read image:", error);
+        toast.error("An error occurred while reading the image file.");
+      };
+    } else {
+      // If no image is selected, update with text fields only
+      performUpdate({ fullName: name, bio });
     }
-  }
+  };
 
   return (
     <div className='min-h-screen bg-cover bg-no-repeat flex items-center justify-center'>

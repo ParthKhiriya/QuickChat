@@ -27,7 +27,7 @@ const ChatContainer = () => {
   // Handle sending an image:
   const handleSendImage = async (event) => {
     const file = event.target.files[0];
-    if(!file || !file.type.startswith("image/")) {
+    if(!file || !file.type.startsWith("image/")) {
       toast.error("Please select and Image file");
       return;
     }
@@ -86,7 +86,7 @@ const ChatContainer = () => {
         {/*----- Bottom Area -----*/}
         <div className='absoulute bottom-0 left-0 right-0 flex items-center gap-3 p-3'>
           <div className='flex-1 flex items-center bg-gray-100/12 px-3 rounded-full'>
-            <input onChange={(event) => setInput(event.target.value)} value={input} onKeyDown={(event) => event.key = "Enter" ? handleSendMessage(event) : null} type="text" placeholder='Send a message' className='flex-1 text-sm p-3 border-none rounded-lg outline-none text-white placeholder-gray-400'/>
+            <input onChange={(event) => setInput(event.target.value)} value={input} onKeyDown={(event) => event.key === "Enter" ? handleSendMessage(event) : null} type="text" placeholder='Send a message' className='flex-1 text-sm p-3 border-none rounded-lg outline-none text-white placeholder-gray-400'/>
             <input onChange={handleSendImage} type="file" id='image' accept='image/png, image/jpeg' hidden />
             <label htmlFor="image">
               <img src={assets.gallery_icon} alt="" className='w-5 mr-2 cursor-pointer' />

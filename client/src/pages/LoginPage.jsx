@@ -5,7 +5,7 @@ import { AuthContext } from '../../context/AuthContext';
 
 const LoginPage = () => {
 
-  const [currentState, setCurrentState] = useState("Sign up");
+  const [currentState, setCurrentState] = useState("Sign Up");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,12 +16,12 @@ const LoginPage = () => {
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    if(currentState === "Sign up" && !isDataSubmitted) {
+    if(currentState === "Sign Up" && !isDataSubmitted) {
       setIsDataSubmitted(true)
       return;
     }
 
-    login(currentState === "Sign up" ? 'signup' : 'login', {fullName, email, password, bio});
+    login(currentState === "Sign Up" ? 'signup' : 'login', {fullName, email, password, bio});
   }
 
   return (
